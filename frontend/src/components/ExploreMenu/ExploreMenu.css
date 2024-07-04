@@ -1,0 +1,11 @@
+.explore-menu-list-item img{
+    border-radius: 300px;
+    height: 131px;
+    width: 131px;
+}
+.explore-menu-list{
+    display: flex;
+    gap: 3.5vw;
+    flex-wrap: wrap;
+    justify-content: center;
+}
