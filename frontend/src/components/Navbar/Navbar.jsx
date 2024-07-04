@@ -23,7 +23,9 @@ const [menu,setMenu] = useState("menu");
             </div>
             <button>sign in</button>
         </div>
+        
     </div>
+  
   )
 }
 export default Navbar
