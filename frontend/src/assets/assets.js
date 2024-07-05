@@ -11,6 +11,8 @@ import menu_6 from './menu_6.png'
 import menu_7 from './menu_7.png'
 import menu_8 from './menu_8.png'
 import menu_9 from './menu_9.png'
+import menu_10 from './menu_10.png'
+
 
 import food_1 from './food_1.png'
 import food_2 from './food_2.png'
@@ -44,6 +46,11 @@ import food_29 from './food_29.png'
 import food_30 from './food_30.png'
 import food_31 from './food_31.png'
 import food_32 from './food_32.png'
+import food_33 from './food_33.png'
+import food_34 from './food_34.png'
+import food_35 from './food_35.png'
+import food_36 from './food_36.png'
+import food_37 from './food_37.png'
 
 import add_icon_white from './add_icon_white.png'
 import add_icon_green from './add_icon_green.png'
@@ -119,238 +126,291 @@ export const menu_list = [
     {
         menu_name: "Sukuti",
         menu_image: menu_9
+    },
+    {
+        menu_name: "Choila",
+        menu_image: menu_10
     }
 ]
 
 export const food_list = [
     {
         _id: "1",
-        name: "Greek salad",
+        name: "Veg Momo",
         image: food_1,
-        price: 12,
-        description: "Food provides essential nutrients for overall health and well-being",
-        category: "Salad"
+        price: 80,
+        description: "Steam veg momo, With achar. Per plate 10 pcs",
+        category: "Momo"
     },
     {
         _id: "2",
-        name: "Veg salad",
+        name: "Buff Momo",
         image: food_2,
-        price: 18,
-        description: "Food provides essential nutrients for overall health and well-being",
-        category: "Salad"
+        price: 100,
+        description: "Steam Buff Momo, With achar. Per plate 10pcs",
+        category: "Momo"
     }, {
         _id: "3",
-        name: "Clover Salad",
+        name: "Chicken Momo",
         image: food_3,
-        price: 16,
-        description: "Food provides essential nutrients for overall health and well-being",
-        category: "Salad"
+        price: 110,
+        description: "Steam chicken Momo, With achar. Per plate 10pcs",
+        category: "Momo"
     }, {
         _id: "4",
-        name: "Chicken Salad",
+        name: "Veg Chow Mein",
         image: food_4,
-        price: 24,
-        description: "Food provides essential nutrients for overall health and well-being",
-        category: "Salad"
+        price: 100,
+        description: "",
+        category: "Chow Mein"
     }, {
         _id: "5",
-        name: "Lasagna Rolls",
+        name: "Chicken Chow Mein",
         image: food_5,
-        price: 14,
-        description: "Food provides essential nutrients for overall health and well-being",
-        category: "Rolls"
+        price: 150,
+        description: "",
+        category: "Chow Mein"
     }, {
         _id: "6",
-        name: "Peri Peri Rolls",
+        name: "Buff Chow Mein",
         image: food_6,
-        price: 12,
-        description: "Food provides essential nutrients for overall health and well-being",
-        category: "Rolls"
+        price: 140,
+        description: "",
+        category: "Chow Mein"
     }, {
         _id: "7",
-        name: "Chicken Rolls",
+        name: "Chicken Sausage",
         image: food_7,
-        price: 20,
-        description: "Food provides essential nutrients for overall health and well-being",
-        category: "Rolls"
+        price: 50,
+        description: "1 pcs Chicken Sausage",
+        category: "Sausage"
     }, {
         _id: "8",
-        name: "Veg Rolls",
+        name: "Buff Sausage",
         image: food_8,
-        price: 15,
+        price: 50,
         description: "Food provides essential nutrients for overall health and well-being",
-        category: "Rolls"
+        category: "Sausage"
     }, {
         _id: "9",
-        name: "Ripple Ice Cream",
+        name: "Fried Chicken Leg",
         image: food_9,
-        price: 14,
-        description: "Food provides essential nutrients for overall health and well-being",
-        category: "Deserts"
+        price: 80,
+        description: "Per pcs Rs 80",
+        category: "Chicken Legs"
     }, {
         _id: "10",
-        name: "Fruit Ice Cream",
+        name: "Buff Sukuti",
         image: food_10,
-        price: 22,
-        description: "Food provides essential nutrients for overall health and well-being",
-        category: "Deserts"
+        price: 100,
+        description: "Per plate Rs 100",
+        category: "Sukuti"
     }, {
         _id: "11",
-        name: "Jar Ice Cream",
+        name: "Buff Sekuwa",
         image: food_11,
-        price: 10,
-        description: "Food provides essential nutrients for overall health and well-being",
-        category: "Deserts"
+        price: 90,
+        description: "1 jheer Buff Sekuwa",
+        category: "Sekuwa"
     }, {
         _id: "12",
-        name: "Vanilla Ice Cream",
+        name: "Chicken Sekuwa",
         image: food_12,
-        price: 12,
-        description: "Food provides essential nutrients for overall health and well-being",
-        category: "Deserts"
+        price: 100,
+        description: "1 jheer Chicken Sekuwa",
+        category: "Sekuwa"
     },
     {
         _id: "13",
-        name: "Chicken Sandwich",
+        name: "Pork Sekuwa",
         image: food_13,
-        price: 12,
-        description: "Food provides essential nutrients for overall health and well-being",
-        category: "Sandwich"
+        price: 100,
+        description: "1 jheer Pork Sekuwa",
+        category: "Sekuwa"
     },
     {
         _id: "14",
-        name: "Vegan Sandwich",
+        name: "Samosa",
         image: food_14,
-        price: 18,
-        description: "Food provides essential nutrients for overall health and well-being",
-        category: "Sandwich"
+        price: 20,
+        description: "1 pcs Samosa",
+        category: "Pure Veg"
     }, {
         _id: "15",
-        name: "Grilled Sandwich",
+        name: "Pakoda",
         image: food_15,
-        price: 16,
-        description: "Food provides essential nutrients for overall health and well-being",
-        category: "Sandwich"
+        price: 10,
+        description: "1 pcs Pakoda",
+        category: "Pure Veg"
     }, {
         _id: "16",
-        name: "Bread Sandwich",
+        name: "Coca Cola",
         image: food_16,
-        price: 24,
-        description: "Food provides essential nutrients for overall health and well-being",
-        category: "Sandwich"
+        price: 60,
+        description: "250ml Coca Cola",
+        category: "Cold Drinks"
     }, {
         _id: "17",
-        name: "Cup Cake",
+        name: "Sprite",
         image: food_17,
-        price: 14,
-        description: "Food provides essential nutrients for overall health and well-being",
-        category: "Cake"
+        price: 60,
+        description: "250ml Sprite",
+        category: "Cold Drinks"
     }, {
         _id: "18",
-        name: "Vegan Cake",
+        name: "Mountain Dew",
         image: food_18,
-        price: 12,
-        description: "Food provides essential nutrients for overall health and well-being",
-        category: "Cake"
+        price: 60,
+        description: "250ml Mountain Dew",
+        category: "Cold Drinks"
     }, {
         _id: "19",
-        name: "Butterscotch Cake",
+        name: "Fanta",
         image: food_19,
-        price: 20,
-        description: "Food provides essential nutrients for overall health and well-being",
-        category: "Cake"
+        price: 60,
+        description: "250ml Fanta",
+        category: "Cold Drinks"
     }, {
         _id: "20",
-        name: "Sliced Cake",
+        name: "Mirinda",
         image: food_20,
-        price: 15,
-        description: "Food provides essential nutrients for overall health and well-being",
-        category: "Cake"
+        price: 60,
+        description: "250ml Mirinda",
+        category: "Cold Drinks"
     }, {
         _id: "21",
-        name: "Garlic Mushroom ",
+        name: "Alu Chop",
         image: food_21,
-        price: 14,
-        description: "Food provides essential nutrients for overall health and well-being",
-        category: "Pure Veg"
-    }, {
-        _id: "22",
-        name: "Fried Cauliflower",
-        image: food_22,
-        price: 22,
-        description: "Food provides essential nutrients for overall health and well-being",
-        category: "Pure Veg"
-    }, {
-        _id: "23",
-        name: "Mix Veg Pulao",
-        image: food_23,
         price: 10,
-        description: "Food provides essential nutrients for overall health and well-being",
+        description: "1 pcs Alu Chop",
         category: "Pure Veg"
-    }, {
+    },{
+        _id: "22",
+        name: "Buff Choi la",
+        image: food_22,
+        price: 100,
+        description: "1 plate Buff Choi la",
+        category: "Choila"
+    },
+    {
+        _id: "23",
+        name: "Chocolate Donut",
+        image: food_23,
+        price: 40,
+        description: "1 pcs Chocolate Donut",
+        category: "Deserts"
+    },
+    {
         _id: "24",
-        name: "Rice Zucchini",
+        name: "Cream Donut",
         image: food_24,
-        price: 12,
-        description: "Food provides essential nutrients for overall health and well-being",
-        category: "Pure Veg"
+        price: 25,
+        description: "1 pcs Cream Donut",
+        category: "Deserts"
     },
     {
         _id: "25",
-        name: "Cheese Pasta",
+        name: "Donut",
         image: food_25,
-        price: 12,
-        description: "Food provides essential nutrients for overall health and well-being",
-        category: "Pasta"
+        price: 15,
+        description: "1 pcs donut",
+        category: "Deserts"
     },
     {
         _id: "26",
-        name: "Tomato Pasta",
+        name: "Cupcake",
         image: food_26,
-        price: 18,
-        description: "Food provides essential nutrients for overall health and well-being",
-        category: "Pasta"
-    }, {
+        price: 70,
+        description: "1 pcs Cupcake",
+        category: "Deserts"  
+    },
+    {
         _id: "27",
-        name: "Creamy Pasta",
+        name: "Pastrey",
         image: food_27,
-        price: 16,
-        description: "Food provides essential nutrients for overall health and well-being",
-        category: "Pasta"
-    }, {
+        price: 100,
+        description: "1 slice of pastrey",
+        category: "Deserts"
+    },
+    {
         _id: "28",
-        name: "Chicken Pasta",
+        name: "Laddu",
         image: food_28,
-        price: 24,
-        description: "Food provides essential nutrients for overall health and well-being",
-        category: "Pasta"
-    }, {
+        price: 15,
+        description: "1 pcs laddu",
+        category: "Deserts"
+    },
+    {
         _id: "29",
-        name: "Buttter Noodles",
+        name: "peda",
         image: food_29,
-        price: 14,
-        description: "Food provides essential nutrients for overall health and well-being",
-        category: "Noodles"
-    }, {
+        price: 30,
+        description: "1 pcs peda",
+        category: "Deserts"
+    },
+    {
         _id: "30",
-        name: "Veg Noodles",
+        name: "Kaju Katli",
         image: food_30,
-        price: 12,
-        description: "Food provides essential nutrients for overall health and well-being",
-        category: "Noodles"
-    }, {
+        price: 60,
+        description: "1 pcs Kaju Katli",
+        category: "Deserts"
+    },
+    {
         _id: "31",
-        name: "Somen Noodles",
+        name: "Khuwa",
         image: food_31,
-        price: 20,
-        description: "Food provides essential nutrients for overall health and well-being",
-        category: "Noodles"
-    }, {
+        price: 80,
+        description: "100 gm khuwa",
+        category: "Deserts"
+    },
+    {
         _id: "32",
-        name: "Cooked Noodles",
+        name: "Sel Roti",
         image: food_32,
         price: 15,
-        description: "Food provides essential nutrients for overall health and well-being",
-        category: "Noodles"
+        description: "1 pcs Sel Roti",
+        category: "Pure Veg"
+    },
+    {
+        _id: "33",
+        name: "Chana Tarkari",
+        image: food_33,
+        price: 30,
+        description: "1 bowl of Chana Tarkari",
+        category: "Pure Veg"
+    },
+    {
+        _id: "34",
+        name: "Puri",
+        image: food_34,
+        price: 20,
+        description: "1 pcs puri",
+        category: "Pure Veg"
+    },
+    {
+        _id: "35",
+        name: "Roti",
+        image: food_35,
+        price: 15,
+        description: "1 pcs Roti",
+        category: "Pure Veg"
+    },
+    {
+        _id: "36",
+        name: "Paratha",
+        image: food_36,
+        price: 25,
+        description: "1 pcs of paratha",
+        category: "Pure Veg"
+    },
+    {
+        _id: "37",
+        name: "Tarkari",
+        image: food_37,
+        price: 30,
+        description: "1 bowl of Alu Kerau Tarkari",
+        category: "Pure Veg"
     }
+
 ]
