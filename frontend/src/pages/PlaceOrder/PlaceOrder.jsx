@@ -4,7 +4,7 @@ import MyMapComponent from '../../components/MyMapComponent/MyMapComponent'
 const PlaceOrder = () => {
   return (
     <div>
-      hello
+      helloke xa
       <MyMapComponent></MyMapComponent>
     </div>
   )

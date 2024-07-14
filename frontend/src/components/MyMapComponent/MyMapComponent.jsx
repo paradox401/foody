@@ -24,9 +24,9 @@ const MyMapComponent = () => {
   };
 
   return (
-    <LoadScript googleMapsApiKey="AIzaSyCEoAE037uWw5GoYUefagZNxeOKbujp0_0">
+    <LoadScript googleMapsApiKey="AIzaSyBTWbEcdp0JFTmEjqVPZx_WX4Zr12NFxHs">
       <Autocomplete
-        apiKey="YOUR_GOOGLE_MAPS_API_KEY"
+        apiKey="AIzaSyBTWbEcdp0JFTmEjqVPZx_WX4Zr12NFxHs"
         onPlaceSelected={handlePlaceSelected}
         types={['address']}
         style={{ width: '300px', marginBottom: '20px' }}
