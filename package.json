@@ -1,5 +1,13 @@
 {
   "devDependencies": {
     "gh-pages": "^6.1.1"
+  },
+  "dependencies": {
+    "@mapbox/mapbox-gl-geocoder": "^5.0.2",
+    "@react-google-maps/api": "^2.19.3",
+    "google-maps-react": "^2.0.6",
+    "mapbox-gl": "^3.5.1",
+    "react-leaflet-geosearch": "^0.3.4",
+    "react-map-gl": "^7.1.7"
   }
 }

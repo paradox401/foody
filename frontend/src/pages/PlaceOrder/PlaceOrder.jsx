@@ -1,8 +1,12 @@
 import React from 'react'
-import './PlaceOrder.css'
+import MyMapComponent from '../../components/MyMapComponent/MyMapComponent'
+
 const PlaceOrder = () => {
   return (
-    <div>PlaceOrder</div>
+    <div>
+      hello
+      <MyMapComponent></MyMapComponent>
+    </div>
   )
 }
 
