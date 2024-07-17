@@ -158,8 +158,10 @@ const OpenStreetMap = () => {
           placeholder="Search for a location..."
         />
         <button onClick={handleSearch}>Search</button>
-        <button onClick={saveUserLocation}>Save Location</button>
+        
+        
       </div>
+      <button onClick={saveUserLocation} className='save_location' >Save Location</button>
     </div>
   );
 };
