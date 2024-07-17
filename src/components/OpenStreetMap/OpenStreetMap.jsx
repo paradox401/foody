@@ -6,15 +6,13 @@ import TileLayer from 'ol/layer/Tile';
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 import OSM from 'ol/source/OSM';
-import { fromLonLat } from 'ol/proj';
+import { fromLonLat, toLonLat } from 'ol/proj';
 import Feature from 'ol/Feature';
 import Point from 'ol/geom/Point';
 import { Icon, Style } from 'ol/style';
+import { Modify } from 'ol/interaction';
 import './OpenStreetMap.css';
 import { assets } from '../../assets/assets';
-
-// Sample marker icon URL
-
 
 const OpenStreetMap = () => {
   const mapElement = useRef(null);
@@ -41,7 +39,6 @@ const OpenStreetMap = () => {
 
     setMap(mapInstance);
 
-    // Clean up map on component unmount
     return () => {
       if (mapInstance) {
         mapInstance.setTarget(null);
@@ -52,19 +49,13 @@ const OpenStreetMap = () => {
   useEffect(() => {
     if (!map || !userLocation) return;
 
-    // Clear previous marker if exists
-    if (userMarker) {
-      map.removeLayer(userMarker);
-    }
+    const marker = new Feature({
+      geometry: new Point(fromLonLat(userLocation))
+    });
 
-    // Create new marker
     const markerLayer = new VectorLayer({
       source: new VectorSource({
-        features: [
-          new Feature({
-            geometry: new Point(fromLonLat(userLocation))
-          })
-        ]
+        features: [marker]
       }),
       style: new Style({
         image: new Icon({
@@ -74,13 +65,28 @@ const OpenStreetMap = () => {
       })
     });
 
+    if (userMarker) {
+      map.removeLayer(userMarker);
+    }
+
     map.addLayer(markerLayer);
     setUserMarker(markerLayer);
 
-    // Center map to user location
     map.getView().animate({
       center: fromLonLat(userLocation),
       zoom: 12
+    });
+
+    // Add interactions for dragging the marker
+    const modify = new Modify({
+      source: markerLayer.getSource(),
+    });
+
+    map.addInteraction(modify);
+
+    modify.on('modifyend', (event) => {
+      const newCoords = event.features.item(0).getGeometry().getCoordinates();
+      setUserLocation(toLonLat(newCoords));
     });
   }, [map, userLocation]);
 
@@ -129,6 +135,17 @@ const OpenStreetMap = () => {
       });
   };
 
+  const saveUserLocation = () => {
+    if (!userLocation) {
+      alert('No location selected');
+      return;
+    }
+
+    // Replace this with actual save logic, e.g., saving to a backend or local storage
+    console.log('User location saved:', userLocation);
+    alert(`Location saved: ${userLocation[1]}, ${userLocation[0]}`);
+  };
+
   return (
     <div className="map-container">
       <div ref={mapElement} className="map" />
@@ -141,6 +158,7 @@ const OpenStreetMap = () => {
           placeholder="Search for a location..."
         />
         <button onClick={handleSearch}>Search</button>
+        <button onClick={saveUserLocation}>Save Location</button>
       </div>
     </div>
   );
