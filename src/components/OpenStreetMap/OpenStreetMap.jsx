@@ -11,9 +11,10 @@ import Feature from 'ol/Feature';
 import Point from 'ol/geom/Point';
 import { Icon, Style } from 'ol/style';
 import './OpenStreetMap.css';
+import { assets } from '../../assets/assets';
 
 // Sample marker icon URL
-const markerIconUrl = 'https://th.bing.com/th?id=OIP.z-toWHOjpQd9wQ20gabcmQHaHa&w=250&h=250&c=8&rs=1&qlt=90&o=6&pid=3.1&rm=2';
+
 
 const OpenStreetMap = () => {
   const mapElement = useRef(null);
@@ -67,8 +68,8 @@ const OpenStreetMap = () => {
       }),
       style: new Style({
         image: new Icon({
-          src: markerIconUrl,
-          scale: 0.07
+          src: assets.marker,
+          scale: 0.5
         })
       })
     });
