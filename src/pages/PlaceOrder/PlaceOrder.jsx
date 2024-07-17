@@ -1,8 +1,16 @@
 import React from 'react'
-import './PlaceOrder.css'
+import OpenStreetMap from '../../components/OpenStreetMap/OpenStreetMap'
+
+
+
 const PlaceOrder = () => {
+  const center = [0,0]
   return (
-    <div>PlaceOrder</div>
+    <div>
+      
+      <h1>Select Your Location</h1>
+      <OpenStreetMap center={center}/>
+    </div>
   )
 }
 
