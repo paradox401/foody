@@ -1,11 +1,15 @@
 import React from 'react'
-import MyMapComponent from '../../components/MyMapComponent/MyMapComponent'
+import OpenStreetMap from '../../components/OpenStreetMap/OpenStreetMap'
+
+
 
 const PlaceOrder = () => {
+  const center = [0,0]
   return (
     <div>
-      helloke xa
-      <MyMapComponent></MyMapComponent>
+      
+      <h1>Select Your Location</h1>
+      <OpenStreetMap center={center}/>
     </div>
   )
 }
