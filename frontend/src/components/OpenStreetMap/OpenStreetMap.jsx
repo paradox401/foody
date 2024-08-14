@@ -3,23 +3,23 @@ import 'ol/ol.css';
 import Map from 'ol/Map';
 import View from 'ol/View';
 import TileLayer from 'ol/layer/Tile';
+import OSM from 'ol/source/OSM';
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
-import OSM from 'ol/source/OSM';
-import { fromLonLat, toLonLat } from 'ol/proj';
 import Feature from 'ol/Feature';
 import Point from 'ol/geom/Point';
 import { Icon, Style } from 'ol/style';
 import { Modify } from 'ol/interaction';
+import { fromLonLat, toLonLat } from 'ol/proj';
 import './OpenStreetMap.css';
-import { assets } from '../../assets/assets';
+import { assets } from '../../assets/assets'; // Adjust path if necessary
 
-const OpenStreetMap = () => {
+const OpenStreetMap = ({ center = [0, 0], onLocationSelect }) => {
   const mapElement = useRef(null);
   const [map, setMap] = useState(null);
-  const [userLocation, setUserLocation] = useState(null);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [userLocation, setUserLocation] = useState(center);
   const [userMarker, setUserMarker] = useState(null);
+  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     if (!mapElement.current) return;
@@ -32,7 +32,7 @@ const OpenStreetMap = () => {
         })
       ],
       view: new View({
-        center: fromLonLat([0, 0]),
+        center: fromLonLat(center),
         zoom: 2
       })
     });
@@ -44,7 +44,7 @@ const OpenStreetMap = () => {
         mapInstance.setTarget(null);
       }
     };
-  }, []);
+  }, [center]);
 
   useEffect(() => {
     if (!map || !userLocation) return;
@@ -59,7 +59,7 @@ const OpenStreetMap = () => {
       }),
       style: new Style({
         image: new Icon({
-          src: assets.marker,
+          src: assets.marker, // Ensure this path is correct
           scale: 0.5
         })
       })
@@ -77,7 +77,6 @@ const OpenStreetMap = () => {
       zoom: 12
     });
 
-    // Add interactions for dragging the marker
     const modify = new Modify({
       source: markerLayer.getSource(),
     });
@@ -86,9 +85,11 @@ const OpenStreetMap = () => {
 
     modify.on('modifyend', (event) => {
       const newCoords = event.features.item(0).getGeometry().getCoordinates();
-      setUserLocation(toLonLat(newCoords));
+      const location = toLonLat(newCoords);
+      setUserLocation(location);
+      onLocationSelect(location); // Notify parent component
     });
-  }, [map, userLocation]);
+  }, [map, userLocation, onLocationSelect]);
 
   const getUserLocation = () => {
     if (!navigator.geolocation) {
@@ -99,7 +100,9 @@ const OpenStreetMap = () => {
     navigator.geolocation.getCurrentPosition(
       (position) => {
         const { latitude, longitude } = position.coords;
-        setUserLocation([longitude, latitude]);
+        const location = [longitude, latitude];
+        setUserLocation(location);
+        onLocationSelect(location);
       },
       (error) => {
         console.error('Error getting user location:', error);
@@ -109,7 +112,7 @@ const OpenStreetMap = () => {
   };
 
   const handleSearch = () => {
-    if (!map || !searchQuery.trim()) return;
+    if (!searchQuery.trim()) return;
 
     fetch(
       `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(
@@ -125,7 +128,9 @@ const OpenStreetMap = () => {
       .then((data) => {
         if (data.length > 0) {
           const result = data[0];
-          setUserLocation([parseFloat(result.lon), parseFloat(result.lat)]);
+          const location = [parseFloat(result.lon), parseFloat(result.lat)];
+          setUserLocation(location);
+          onLocationSelect(location);
         } else {
           console.log('No results found');
         }
@@ -135,20 +140,9 @@ const OpenStreetMap = () => {
       });
   };
 
-  const saveUserLocation = () => {
-    if (!userLocation) {
-      alert('No location selected');
-      return;
-    }
-
-    // Replace this with actual save logic, e.g., saving to a backend or local storage
-    console.log('User location saved:', userLocation);
-    alert(`Location saved: ${userLocation[1]}, ${userLocation[0]}`);
-  };
-
   return (
     <div className="map-container">
-      <div ref={mapElement} className="map" />
+      <div ref={mapElement} className="map" style={{ height: '500px', width: '100%' }} />
       <div className="controls">
         <button onClick={getUserLocation}>Get My Location</button>
         <input
@@ -158,10 +152,7 @@ const OpenStreetMap = () => {
           placeholder="Search for a location..."
         />
         <button onClick={handleSearch}>Search</button>
-        
-        
       </div>
-      <button onClick={saveUserLocation} className='save_location' >Save Location</button>
     </div>
   );
 };
