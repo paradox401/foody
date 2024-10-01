@@ -13,7 +13,7 @@ const Cart = () => {
 
   const handleLocationSelect = (location) => {
     setSelectedLocation(`Latitude: ${location[1]}, Longitude: ${location[0]}`);
-    setShowLocationPopup(false);
+
   };
 
   return (
@@ -86,11 +86,14 @@ const Cart = () => {
       </div>
 
       {/* Modal for selecting location */}
+      <div className='cart-map'>
       <Modal isOpen={showLocationPopup} onRequestClose={() => setShowLocationPopup(false)} ariaHideApp={false}>
         <h2>Select Your Location</h2>
         <OpenStreetMap center={[0, 0]} onLocationSelect={handleLocationSelect} />
-        <button onClick={() => setShowLocationPopup(false)}>Close</button>
+        <button className ='close-button' onClick={() => setShowLocationPopup(false)}>Close</button>
       </Modal>
+      </div>
+
     </div>
   );
 };

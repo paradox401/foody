@@ -12,12 +12,12 @@ import { Icon, Style } from 'ol/style';
 import { Modify } from 'ol/interaction';
 import { fromLonLat, toLonLat } from 'ol/proj';
 import './OpenStreetMap.css';
-import { assets } from '../../assets/assets'; // Adjust path if necessary
+import { assets } from '../../assets/assets';
 
-const OpenStreetMap = ({ center = [0, 0], onLocationSelect }) => {
+const OpenStreetMap = ({ center = [85.0322, 27.4291], onLocationSelect }) => {
   const mapElement = useRef(null);
   const [map, setMap] = useState(null);
-  const [userLocation, setUserLocation] = useState(center);
+  const [userLocation, setUserLocation] = useState([85.0322, 27.4291]);
   const [userMarker, setUserMarker] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -32,8 +32,8 @@ const OpenStreetMap = ({ center = [0, 0], onLocationSelect }) => {
         })
       ],
       view: new View({
-        center: fromLonLat(center),
-        zoom: 2
+        center: fromLonLat(userLocation),
+        zoom: 12
       })
     });
 
@@ -44,7 +44,7 @@ const OpenStreetMap = ({ center = [0, 0], onLocationSelect }) => {
         mapInstance.setTarget(null);
       }
     };
-  }, [center]);
+  }, [userLocation]);
 
   useEffect(() => {
     if (!map || !userLocation) return;
@@ -96,7 +96,7 @@ const OpenStreetMap = ({ center = [0, 0], onLocationSelect }) => {
       alert('Geolocation is not supported by your browser');
       return;
     }
-
+  
     navigator.geolocation.getCurrentPosition(
       (position) => {
         const { latitude, longitude } = position.coords;
@@ -105,12 +105,25 @@ const OpenStreetMap = ({ center = [0, 0], onLocationSelect }) => {
         onLocationSelect(location);
       },
       (error) => {
+        switch (error.code) {
+          case error.PERMISSION_DENIED:
+            alert("User denied the request for Geolocation.");
+            break;
+          case error.POSITION_UNAVAILABLE:
+            alert("Location information is unavailable.");
+            break;
+          case error.TIMEOUT:
+            alert("The request to get user location timed out.");
+            break;
+          case error.UNKNOWN_ERROR:
+            alert("An unknown error occurred.");
+            break;
+        }
         console.error('Error getting user location:', error);
-        alert('Error getting your location');
       }
     );
   };
-
+  
   const handleSearch = () => {
     if (!searchQuery.trim()) return;
 

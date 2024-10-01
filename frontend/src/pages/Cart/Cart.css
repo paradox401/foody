@@ -96,6 +96,20 @@
     color: white;
     border-radius: 4px;
 }
+.close-button {
+    position: fixed;        
+    top: 50px;              
+    right: 60px;           
+    border: none;
+    color: white;
+    background-color: tomato;
+    width: max(4vw, 40px);
+    padding: 5px 0px;
+    border-radius: 4px;
+    cursor: pointer;
+    z-index: 1000;          
+}
+
 
 @media(max-width:750px){
     .cart-bottom{
