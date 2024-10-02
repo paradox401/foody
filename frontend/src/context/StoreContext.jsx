@@ -1,5 +1,6 @@
 import React, { createContext, useEffect, useState } from 'react';
 import axios from 'axios';
+import { totalmem } from 'os';
 
 export const StoreContext = createContext(null);
 
@@ -57,15 +58,20 @@ const StoreContextProvider = (props) => {
     return totalAmount;
   };
   const getTotalCartAmountWithDP = ()=> {
-    let finalAmount = getTotalCartAmount();
-    if (cartItems.length > 0){
+    let finalAmount = getTotalCartAmount;
+    let totalItem = 0;
+    for (const item in cartItems)
+    {
+      totalItem += cartItems[item];
+    }
+    if (totalItem > 0){
       if (Object.keys(cartItems).length > 0){
         finalAmount = getTotalCartAmount() + 100;
       }
     }
-      else{
-        finalAmount = 0;
-      }
+    else{
+      finalAmount = 0;
+    }
       return finalAmount;
   };
 

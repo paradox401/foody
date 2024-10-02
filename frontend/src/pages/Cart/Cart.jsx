@@ -86,7 +86,7 @@ const Cart = () => {
             <hr />
             <div className="cart-total-details">
               <b>Total</b>
-              <b>RS{getTotalCartAmountWithDP()}</b>
+              <b>RS {getTotalCartAmountWithDP()}</b>
             </div>
             <div className="cart-location">
               <p><b>Selected Location:</b> {selectedLocation || 'Not selected'}</p>
