@@ -6,7 +6,7 @@ import axios from 'axios';
 import Modal from 'react-modal';
 
 const PlaceOrder = () => {
-  const { cartItems, food_list, getTotalCartAmount, clearCart, url, userId, coordinates } = useContext(StoreContext); // Fetch coordinates from context
+  const { cartItems, food_list, getTotalCartAmount,getTotalCartAmountWithDP, clearCart, url, userId, coordinates } = useContext(StoreContext); // Fetch coordinates from context
   const [userData, setUserData] = useState({
     name: '',
     address: '',
@@ -55,7 +55,7 @@ const PlaceOrder = () => {
           foodId: item._id,
           quantity: cartItems[item._id],
         })),
-      totalAmount: getTotalCartAmount(),
+      totalAmount: getTotalCartAmountWithDP(),
     };
   
     console.log("Order Details being sent:", orderDetails); // Log the order details
@@ -96,7 +96,7 @@ const PlaceOrder = () => {
           )
         ))}
         <hr />
-        <h4>Total Amount: Rs{getTotalCartAmount()}</h4>
+        <h4>Total Amount: Rs{getTotalCartAmountWithDP()}</h4>
       </div>
 
       <div className="user-details">
