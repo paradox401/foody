@@ -22,6 +22,10 @@ const orderSchema = new mongoose.Schema({
     },
     items: [
         {
+            foodName: {
+                type: String, 
+                required: true,
+            },
             foodId: {
                 type: mongoose.Schema.Types.ObjectId,
                 required: true,

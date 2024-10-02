@@ -43,7 +43,7 @@ const PlaceOrder = () => {
     }
   
     const orderDetails = {
-      userId: userId, // Hardcoded for testing
+      userId: userId,
       user: {
         name: userData.name,
         address: userData.address,
@@ -52,6 +52,7 @@ const PlaceOrder = () => {
       items: food_list
         .filter(item => cartItems[item._id] > 0)
         .map(item => ({
+          foodName: item.name,
           foodId: item._id,
           quantity: cartItems[item._id],
         })),
