@@ -24,9 +24,13 @@ const Cart = () => {
 
   };
   const handleProceedToCheckout = () => {
-    const hasItemsInCart = Object.keys(cartItems).length > 0; // Check if cart has items
+    let totalItem = 0;
+    for (const item in cartItems)
+    {
+      totalItem += cartItems[item];
+    } // Check if cart has items
     
-    if (hasItemsInCart) {
+    if (totalItem > 0) {
       console.log(token)
       if (token) {
         navigate('/order'); // If logged in, navigate to order page
