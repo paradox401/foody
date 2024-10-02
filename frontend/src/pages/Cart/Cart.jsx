@@ -4,12 +4,15 @@ import './Cart.css';
 import { StoreContext } from '../../context/StoreContext';
 import { useNavigate } from 'react-router-dom';
 import OpenStreetMap from '../../components/OpenStreetMap/OpenStreetMap'; // Import your OpenStreetMap component
+import LoginPopup from '../../components/LoginPopup/LoginPopup';
+
 
 const Cart = () => {
-  const { cartItems, food_list, removeFromCart, getTotalCartAmount, url, setCoordinates } = useContext(StoreContext);
+  const { cartItems, token,food_list, removeFromCart, getTotalCartAmount, getTotalCartAmountWithDP, url, setCoordinates } = useContext(StoreContext);
   const navigate = useNavigate();
   const [showLocationPopup, setShowLocationPopup] = useState(false);
   const [selectedLocation, setSelectedLocation] = useState('');
+  const [showLogin, setShowLogin] = useState(false);
 
   const handleLocationSelect = (location) => {
     const latitude = location[1]; // Assuming the second value is latitude
@@ -18,6 +21,21 @@ const Cart = () => {
     setSelectedLocation(`Latitude: ${latitude}, Longitude: ${longitude}`);
     setCoordinates({ latitude, longitude }); // Correctly setting the coordinates
     console.log("Selected Coordinates:", { latitude, longitude }); // Log selected coordinates
+
+  };
+  const handleProceedToCheckout = () => {
+    const hasItemsInCart = Object.keys(cartItems).length > 0; // Check if cart has items
+    
+    if (hasItemsInCart) {
+      console.log(token)
+      if (token) {
+        navigate('/order'); // If logged in, navigate to order page
+      } else {
+        setShowLogin(true); // If not logged in, show login popup
+      }
+    } else {
+      alert('Your cart is empty. Please add items to proceed.');
+    }
   };
 
   return (
@@ -58,7 +76,7 @@ const Cart = () => {
           <div>
             <div className="cart-total-details">
               <p>Subtotal</p>
-              <p>RS{getTotalCartAmount()-100}</p>
+              <p>RS{getTotalCartAmount()}</p>
             </div>
             <hr />
             <div className="cart-total-details">
@@ -68,15 +86,17 @@ const Cart = () => {
             <hr />
             <div className="cart-total-details">
               <b>Total</b>
-              <b>RS{getTotalCartAmount()}</b>
+              <b>RS{getTotalCartAmountWithDP()}</b>
             </div>
             <div className="cart-location">
               <p><b>Selected Location:</b> {selectedLocation || 'Not selected'}</p>
             </div>
           </div>
           <button onClick={() => setShowLocationPopup(true)}>Select Location</button>
-          <button onClick={() => navigate('/order')}>PROCEED TO CHECKOUT</button>
+          <button onClick={handleProceedToCheckout}>PROCEED TO CHECKOUT</button>
+          
         </div>
+        
         <div className="cart-promocode">
           <div>
             <p>If you have a promo code, enter it here</p>
@@ -96,6 +116,10 @@ const Cart = () => {
           <button className='close-button' onClick={() => setShowLocationPopup(false)}>Close</button>
         </Modal>
       </div>
+        <div className="cart-login">
+        {showLogin && <LoginPopup setShowLogin={setShowLogin} />}
+        </div>
+
     </div>
   );
 };

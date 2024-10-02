@@ -109,7 +109,28 @@
     cursor: pointer;
     z-index: 1000;          
 }
-
+.cart-login {
+    position: fixed; /* Ensures the popup is positioned relative to the viewport */
+    top: 25%; /* Center vertically */
+    left: 50%; /* Center horizontally */
+    transform: translate(-50%, -50%); /* Adjusts the position to ensure true centering */
+    z-index: 9999; /* Ensure it appears on top of other elements */
+    background-color: rgba(33, 19, 19, 0.688); /* Add a background color */
+    border-radius: 10px; /* Optional: Rounded corners */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Add a shadow for a popup effect */
+    width: 400px; /* Set a fixed width for the popup */
+  }
+  
+  .cart-login .close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: transparent;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+  }
+  
 
 @media(max-width:750px){
     .cart-bottom{

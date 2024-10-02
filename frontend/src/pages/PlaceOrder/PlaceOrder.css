@@ -137,8 +137,8 @@
 /* Styles for Close Button */
 .modal-close-button {
   position: relative;
-  top: 150px;
-  left: 410px;
+  top: 50%;
+  left: 50%;
   background-color: #ff6f61; /* Button background color */
   color: #fff; /* Text color */
   border: none; /* Remove default border */
