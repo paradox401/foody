@@ -58,8 +58,13 @@ const StoreContextProvider = (props) => {
   };
   const getTotalCartAmountWithDP = ()=> {
     let finalAmount = getTotalCartAmount();
+    if (cartItems.length > 0){
       if (Object.keys(cartItems).length > 0){
         finalAmount = getTotalCartAmount() + 100;
+      }
+    }
+      else{
+        finalAmount = 0;
       }
       return finalAmount;
   };

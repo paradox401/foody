@@ -15,3 +15,9 @@
     row-gap: 50px;
     
 }
+
+@media (max-width:750px){
+    .food-display-list{
+        display: flex;
+    }
+}
