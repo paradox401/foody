@@ -1,0 +1,169 @@
+/* Styles for the Place Order Container */
+.place-order-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  max-width: 600px; /* Set a max width for the container */
+  margin: auto; /* Center the container */
+  border: 1px solid #ddd; /* Add a border */
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
+  background-color: #fff; /* Background color */
+}
+
+/* Styles for the Order Summary */
+.order-summary {
+  width: 100%; /* Full width */
+  margin-bottom: 20px; /* Space below */
+}
+
+.order-summary h3 {
+  margin-bottom: 10px; /* Space below heading */
+  color: #333; /* Heading color */
+}
+
+/* Styles for individual order items */
+.order-item {
+  display: flex;
+  align-items: center; /* Center items vertically */
+  margin-bottom: 10px; /* Space below items */
+}
+
+.order-item img {
+  width: 60px; /* Set a fixed width for images */
+  height: 60px; /* Set a fixed height for images */
+  margin-right: 10px; /* Space between image and text */
+  border-radius: 5px; /* Rounded image corners */
+}
+
+.order-item p {
+  margin: 0; /* Remove default margins */
+}
+
+/* Styles for total amount */
+.order-summary h4 {
+  font-weight: bold; /* Bold text for total */
+  color: #555; /* Color for total */
+}
+
+/* Styles for User Details Section */
+.user-details {
+  width: 100%; /* Full width */
+  border-top: 1px solid #ddd; /* Top border */
+  padding-top: 10px; /* Space above */
+}
+
+.user-details h3 {
+  margin-bottom: 10px; /* Space below heading */
+  color: #333; /* Heading color */
+}
+
+/* Styles for input labels */
+.user-details label {
+  display: block; /* Block level for stacking */
+  margin-bottom: 10px; /* Space below each label */
+  font-weight: 500; /* Semi-bold labels */
+}
+
+/* Styles for input fields */
+.user-details input[type="text"] {
+  width: 100%; /* Full width for inputs */
+  padding: 10px; /* Padding inside inputs */
+  border: 1px solid #ccc; /* Border for inputs */
+  border-radius: 5px; /* Rounded corners */
+  margin-top: 5px; /* Space above input */
+}
+
+/* Styles for required inputs */
+.user-details input:required {
+  border-color: #f00; /* Red border for required fields */
+}
+/* Styles for the Place Order Button */
+.place-order-button {
+  background-color: #ff6f61; /* Button background color */
+  color: #fff; /* Text color */
+  border: none; /* Remove default border */
+  border-radius: 5px; /* Rounded corners */
+  padding: 12px 20px; /* Vertical and horizontal padding */
+  font-size: 16px; /* Font size */
+  font-weight: bold; /* Bold text */
+  cursor: pointer; /* Change cursor to pointer on hover */
+  transition: background-color 0.3s ease, transform 0.2s; /* Smooth transitions */
+}
+
+/* Hover effect for the button */
+.place-order-button:hover {
+  background-color: #ff5a47; /* Darker shade on hover */
+  transform: scale(1.05); /* Slightly enlarge button on hover */
+}
+
+/* Focus effect for accessibility */
+.place-order-button:focus {
+  outline: none; /* Remove default focus outline */
+  box-shadow: 0 0 0 3px rgba(255, 111, 97, 0.5); /* Custom focus outline */
+}
+
+/* Disable button styles */
+.place-order-button:disabled {
+  background-color: #ccc; /* Light gray background for disabled state */
+  color: #666; /* Dark gray text */
+  cursor: not-allowed; /* Change cursor to indicate disabled */
+  transform: none; /* No scaling effect on disabled state */
+}
+/* Styles for Modal Title */
+.modal-title {
+  margin-bottom: 10px; /* Space below title */
+  color: #333; /* Title color */
+  font-size: 20px; /* Font size for title */
+  text-align: center; /* Center the title text */
+}
+
+/* Styles for Modal Message */
+.modal-message {
+  margin-bottom: 20px; /* Space below message */
+  color: #555; /* Message color */
+  font-size: 16px; /* Font size for message */
+  text-align: center; /* Center the message text */
+}
+
+/* Styles for Modal Button Container */
+.modal-button-container {
+  display: flex; /* Enable flexbox */
+  justify-content: center; /* Center items horizontally */
+  margin-top: 20px; /* Space above the button */
+}
+
+/* Styles for Close Button */
+.modal-close-button {
+  position: relative;
+  top: 150px;
+  left: 410px;
+  background-color: #ff6f61; /* Button background color */
+  color: #fff; /* Text color */
+  border: none; /* Remove default border */
+  border-radius: 5px; /* Rounded corners */
+  padding: 10px 15px; /* Padding for button */
+  font-size: 16px; /* Font size */
+  cursor: pointer; /* Change cursor to pointer on hover */
+  transition: background-color 0.3s ease; /* Smooth transition */
+}
+
+/* Hover effect for the close button */
+.modal-close-button:hover {
+  background-color: #ff5a47; /* Darker shade on hover */
+}
+
+
+
+/* Media query for responsiveness */
+@media (max-width: 768px) {
+  .place-order-container {
+    padding: 10px; /* Less padding on small screens */
+  }
+
+  .order-item img {
+    width: 50px; /* Smaller images on small screens */
+    height: 50px; /* Smaller images on small screens */
+  }
+}

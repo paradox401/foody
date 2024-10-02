@@ -6,14 +6,18 @@ import { useNavigate } from 'react-router-dom';
 import OpenStreetMap from '../../components/OpenStreetMap/OpenStreetMap'; // Import your OpenStreetMap component
 
 const Cart = () => {
-  const { cartItems, food_list, removeFromCart, getTotalCartAmount, url } = useContext(StoreContext);
+  const { cartItems, food_list, removeFromCart, getTotalCartAmount, url, setCoordinates } = useContext(StoreContext);
   const navigate = useNavigate();
   const [showLocationPopup, setShowLocationPopup] = useState(false);
   const [selectedLocation, setSelectedLocation] = useState('');
 
   const handleLocationSelect = (location) => {
-    setSelectedLocation(`Latitude: ${location[1]}, Longitude: ${location[0]}`);
+    const latitude = location[1]; // Assuming the second value is latitude
+    const longitude = location[0]; // Assuming the first value is longitude
 
+    setSelectedLocation(`Latitude: ${latitude}, Longitude: ${longitude}`);
+    setCoordinates({ latitude, longitude }); // Correctly setting the coordinates
+    console.log("Selected Coordinates:", { latitude, longitude }); // Log selected coordinates
   };
 
   return (
@@ -54,12 +58,12 @@ const Cart = () => {
           <div>
             <div className="cart-total-details">
               <p>Subtotal</p>
-              <p>RS{getTotalCartAmount()}</p>
+              <p>RS{getTotalCartAmount()-100}</p>
             </div>
             <hr />
             <div className="cart-total-details">
               <p>Delivery Fee</p>
-              <p></p>
+              <p>100</p>
             </div>
             <hr />
             <div className="cart-total-details">
@@ -72,7 +76,6 @@ const Cart = () => {
           </div>
           <button onClick={() => setShowLocationPopup(true)}>Select Location</button>
           <button onClick={() => navigate('/order')}>PROCEED TO CHECKOUT</button>
-          
         </div>
         <div className="cart-promocode">
           <div>
@@ -87,13 +90,12 @@ const Cart = () => {
 
       {/* Modal for selecting location */}
       <div className='cart-map'>
-      <Modal isOpen={showLocationPopup} onRequestClose={() => setShowLocationPopup(false)} ariaHideApp={false}>
-        <h2>Select Your Location</h2>
-        <OpenStreetMap center={[0, 0]} onLocationSelect={handleLocationSelect} />
-        <button className ='close-button' onClick={() => setShowLocationPopup(false)}>Close</button>
-      </Modal>
+        <Modal isOpen={showLocationPopup} onRequestClose={() => setShowLocationPopup(false)} ariaHideApp={false}>
+          <h2>Select Your Location</h2>
+          <OpenStreetMap center={[0, 0]} onLocationSelect={handleLocationSelect} />
+          <button className='close-button' onClick={() => setShowLocationPopup(false)}>Close</button>
+        </Modal>
       </div>
-
     </div>
   );
 };
