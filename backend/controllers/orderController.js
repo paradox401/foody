@@ -34,7 +34,7 @@ const createOrder = async (req, res) => {
     }
 };
 
-// New method to fetch the list of orders
+// Method to fetch the list of orders
 const getOrderList = async (req, res) => {
     try {
         // Fetch all orders from the database
@@ -75,6 +75,7 @@ const getOrderList = async (req, res) => {
     }
 };
 
+// Method to complete an order
 const completeOrder = async (req, res) => {
     const { id } = req.params; // Using 'id' from the URL parameters
 
@@ -105,8 +106,7 @@ const completeOrder = async (req, res) => {
     }
 };
 
-
-
+// Method to remove an order
 const removeOrder = async (req, res) => {
     const { id } = req.params; // Using 'id' from the URL parameters
 
@@ -128,4 +128,67 @@ const removeOrder = async (req, res) => {
     }
 };
 
-export { createOrder, getOrderList, completeOrder, removeOrder };
+// Method to get completed orders
+const getCompletedOrders = async (req, res) => {
+    try {
+        // Fetch all completed orders from the database
+        const completedOrders = await CompletedOrder.find();
+
+        // Check for empty completed orders
+        if (completedOrders.length === 0) {
+            return res.status(200).json({ success: true, message: 'No completed orders found' });
+        }
+
+        // Map the completed orders to the desired structure
+        const formattedCompletedOrders = completedOrders.map(order => ({
+            _id: order._id, // Ensure to include the completed order ID
+            user: {
+                name: order.user.name,
+                address: order.user.address,
+                phone: order.user.phone,
+            },
+            items: order.items.map(item => ({
+                foodName: item.foodName,
+                foodId: item.foodId, // Assuming foodId is stored directly
+                quantity: item.quantity,
+            })),
+            totalAmount: order.totalAmount,
+            createdAt: new Date(order.createdAt).toLocaleString(), // Format the date
+        }));
+
+        res.status(200).json({
+            success: true,
+            data: formattedCompletedOrders, // Send the formatted completed order data
+        });
+    } catch (error) {
+        console.error("Error fetching completed orders:", error.message);
+        res.status(500).json({
+            success: false,
+            message: "Server error while fetching completed orders",
+        });
+    }
+};
+
+// Method to remove a completed order
+const removeCompletedOrder = async (req, res) => {
+    const { id } = req.params; // Using 'id' from the URL parameters
+
+    try {
+        if (!id) {
+            return res.status(400).json({ success: false, message: 'Completed order ID is required' });
+        }
+
+        const deletedCompletedOrder = await CompletedOrder.findByIdAndDelete(id);
+
+        if (!deletedCompletedOrder) {
+            return res.status(404).json({ success: false, message: 'Completed order not found' });
+        }
+
+        res.status(200).json({ success: true, message: 'Completed order removed successfully' });
+    } catch (error) {
+        console.error('Error removing completed order:', error.message);
+        res.status(500).json({ success: false, message: 'Server error', error: error.message });
+    }
+};
+
+export { createOrder, getOrderList, completeOrder, removeOrder, getCompletedOrders, removeCompletedOrder };

@@ -9,7 +9,7 @@ const CompleteOrder = ({ url }) => {
     // Fetch the list of orders
     const fetchOrders = async () => {
         try {
-            const response = await axios.get(`${url}/api/complete`);
+            const response = await axios.get(`${url}/api/orders/completed-orders`);
             if (response.data.success) {
                 setOrders(response.data.data || []); // Ensure it's always an array
             } else {
@@ -20,20 +20,23 @@ const CompleteOrder = ({ url }) => {
         }
     };
 
-    // Mark order as complete
-    const handleCompleteOrder = async (id) => {
+    const handleRemoveOrder = async (_id) => {
         try {
-            const response = await axios.put(`${url}/api/orders/complete/${id}`);
+            const response = await axios.delete(`${url}/api/orders/completed-orders/remove/${_id}`);
+    
             if (response.data.success) {
                 toast.success(response.data.message);
-                fetchOrders(); // Refresh the order list
+                fetchOrders(); // Refresh the list of completed orders after removal
             } else {
                 toast.error(response.data.message);
             }
         } catch (error) {
-            toast.error("Error completing the order");
+            toast.error("Error removing the completed order");
+            console.error("Remove order error:", error); // Log error for debugging
         }
     };
+  
+
 
     useEffect(() => {
         fetchOrders();
@@ -72,7 +75,7 @@ const CompleteOrder = ({ url }) => {
                             <p>Rs {order.totalAmount}</p>
                             <p>{new Date(order.createdAt).toLocaleString()}</p> {/* Format date */}
                             <div>
-                                <button onClick={() => handleCompleteOrder(order._id)}>Complete</button>
+                            <button onClick={() => handleRemoveOrder(order._id)}>Remove</button>
                             </div>
                         </div>
                     ))

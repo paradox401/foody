@@ -26,6 +26,10 @@
     cursor: pointer;
 }
 
+.button button{
+    margin-bottom: 5px;
+}
+
 @media (max-width: 600px) {
     .order-table-format {
         grid-template-columns: 1fr 1fr 1fr;

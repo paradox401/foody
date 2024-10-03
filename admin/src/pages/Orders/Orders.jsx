@@ -89,7 +89,7 @@ const handleCompleteOrder = async (_id) => {
                             </div>
                             <p>Rs {order.totalAmount}</p>
                             <p>{new Date(order.createdAt).toLocaleString()}</p>
-                            <div>
+                            <div className='button'>
                                 <button onClick={() => handleCompleteOrder(order._id)}>Complete</button>
                                 <button onClick={() => handleRemoveOrder(order._id)}>Remove</button>
                             </div>
