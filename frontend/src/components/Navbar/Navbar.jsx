@@ -19,9 +19,9 @@ const logout = ()=>{
 }
   return (
     <div className='navbar'>
-        <Link to='/'><img className = 'logo'src={assets.logo} alt="" /></Link>
+        <Link to='/foody'><img className = 'logo'src={assets.logo} alt="" /></Link>
         <ul className="navbar-menu">
-            <Link to='/' onClick={()=>setMenu("home")} className={menu === "home"?"active":""}>HOME</Link>
+            <Link to='/foody' onClick={()=>setMenu("home")} className={menu === "home"?"active":""}>HOME</Link>
             <a href='#explore-menu' onClick={()=>setMenu("menu")} className={menu === "menu"?"active":""}>MENU</a>
             <a href='#app-download' onClick={()=>setMenu("mobile-app")} className={menu === "mobile-app"?"active":""}>MOBILE APP</a>
             <a href='#footer' onClick={()=>setMenu("contact-us")} className={menu === "contact-us"?"active":""}>CONTACT US</a>
@@ -29,7 +29,7 @@ const logout = ()=>{
         <div className="navbar-right">
             <img src={assets.search_icon} alt="" />
             <div className="navbar-search-icon">
-                <Link to='/cart'><img src={assets.basket_icon} alt="" /></Link>
+                <Link to='/foody/cart'><img src={assets.basket_icon} alt="" /></Link>
                 <div className={getTotalCartAmount()===0?"":"dot"}></div>
             </div>
             {!token?<button onClick={()=>setShowLogin(true)}>sign in</button>
