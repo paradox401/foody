@@ -23,22 +23,21 @@ const OrderList = ({ url }) => {
     };
 
     // Mark order as complete
-    // Mark order as complete
-const handleCompleteOrder = async (_id) => {
-  try {
-      const response = await axios.put(`${url}/api/orders/complete/${_id}`);
+    const handleCompleteOrder = async (_id) => {
+        try {
+            const response = await axios.put(`${url}/api/orders/complete/${_id}`);
 
-      if (response.data.success) {
-          toast.success(response.data.message);
-          fetchOrders(); // Refresh the order list
-      } else {
-          toast.error(response.data.message);
-      }
-  } catch (error) {
-      toast.error("Error completing the order");
-      console.error("Complete order error:", error); // Log error for debugging
-  }
-};
+            if (response.data.success) {
+                toast.success(response.data.message);
+                fetchOrders(); // Refresh the order list
+            } else {
+                toast.error(response.data.message);
+            }
+        } catch (error) {
+            toast.error("Error completing the order");
+            console.error("Complete order error:", error); // Log error for debugging
+        }
+    };
 
     // Remove order
     const handleRemoveOrder = async (_id) => {
@@ -58,9 +57,17 @@ const handleCompleteOrder = async (_id) => {
     };
 
     useEffect(() => {
-        fetchOrders();
-    }, []);
-  
+        fetchOrders(); // Fetch orders when the component mounts
+
+        // Set up interval to fetch orders every 10 seconds (10000 ms)
+        const intervalId = setInterval(() => {
+            fetchOrders();
+        }, 10000);
+
+        // Cleanup function to clear the interval on component unmount
+        return () => clearInterval(intervalId);
+    }, []); // Empty dependency array to run effect only once on mount
+
     return (
         <div className='order-list add flex-col'>
             <p>Order List</p>
