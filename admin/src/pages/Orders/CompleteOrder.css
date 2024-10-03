@@ -1,0 +1,21 @@
+.complete-order {
+    padding: 20px;
+}
+
+.order-table {
+    display: flex;
+    flex-direction: column;
+}
+
+.order-table-format {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+}
+
+.order-table-format.title {
+    background-color: #f4f4f4;
+    font-weight: bold;
+}

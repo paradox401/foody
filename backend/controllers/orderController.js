@@ -1,5 +1,6 @@
 import Order from '../models/orderModel.js';
 import User from '../models/userModel.js';
+import CompletedOrder from '../models/completedOrderModel.js';
 
 // Existing method to create an order
 const createOrder = async (req, res) => {
@@ -28,7 +29,7 @@ const createOrder = async (req, res) => {
         await newOrder.save();
         res.status(201).json({ success: true, order: newOrder, message: 'Order placed successfully!' });
     } catch (error) {
-        console.error(error);
+        console.error("Error creating order:", error.message);
         res.status(500).json({ success: false, message: 'Error placing order', error: error.message });
     }
 };
@@ -46,6 +47,7 @@ const getOrderList = async (req, res) => {
 
         // Map the orders to the desired structure
         const formattedOrders = orders.map(order => ({
+            _id: order._id, // Ensure to include the order ID
             user: {
                 name: order.user.name,
                 address: order.user.address,
@@ -65,7 +67,7 @@ const getOrderList = async (req, res) => {
             data: formattedOrders, // Send the formatted order data
         });
     } catch (error) {
-        console.error("Error fetching orders:", error);
+        console.error("Error fetching orders:", error.message);
         res.status(500).json({
             success: false,
             message: "Server error while fetching orders",
@@ -73,4 +75,57 @@ const getOrderList = async (req, res) => {
     }
 };
 
-export { createOrder, getOrderList };
+const completeOrder = async (req, res) => {
+    const { id } = req.params; // Using 'id' from the URL parameters
+
+    try {
+        const order = await Order.findById(id);
+        
+        if (!order) {
+            return res.status(404).json({ success: false, message: 'Order not found' });
+        }
+
+        // Create a new completed order using the completedOrder model
+        const completedOrder = new CompletedOrder({
+            userId: order.userId,
+            user: order.user,
+            items: order.items,
+            totalAmount: order.totalAmount,
+            createdAt: order.createdAt,
+        });
+        
+        await completedOrder.save(); // Save the completed order to the database
+
+        await Order.findByIdAndDelete(id); // Optionally delete the original order
+
+        res.status(200).json({ success: true, message: 'Order completed and moved to Completed Orders' });
+    } catch (error) {
+        console.error("Error completing order:", error.message);
+        res.status(500).json({ success: false, message: 'Server error while completing order' });
+    }
+};
+
+
+
+const removeOrder = async (req, res) => {
+    const { id } = req.params; // Using 'id' from the URL parameters
+
+    try {
+        if (!id) {
+            return res.status(400).json({ success: false, message: 'Order ID is required' });
+        }
+
+        const deletedOrder = await Order.findByIdAndDelete(id);
+
+        if (!deletedOrder) {
+            return res.status(404).json({ success: false, message: 'Order not found' });
+        }
+
+        res.status(200).json({ success: true, message: 'Order removed successfully' });
+    } catch (error) {
+        console.error('Error removing order:', error.message);
+        res.status(500).json({ success: false, message: 'Server error', error: error.message });
+    }
+};
+
+export { createOrder, getOrderList, completeOrder, removeOrder };

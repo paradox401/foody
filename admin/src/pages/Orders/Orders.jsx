@@ -1,65 +1,106 @@
 import React, { useEffect, useState } from 'react';
-import './Orders.css'; // Ensure your CSS is set up for styling
+import './Orders.css';
 import axios from 'axios';
-import { toast } from 'react-toastify'; // Import react-toastify
+import { toast } from 'react-toastify';
 
 const OrderList = ({ url }) => {
-  const [orders, setOrders] = useState([]);
+    const [orders, setOrders] = useState([]); // Ensure it's an empty array
 
-  // Function to fetch orders from the API
-  const fetchOrders = async () => {
-    try {
-      const response = await axios.get(`${url}/api/orders/list`);
-      
+    const fetchOrders = async () => {
+        try {
+            const response = await axios.get(`${url}/api/orders/list`);
+            console.log("Fetched orders:", response.data); // Log response for debugging
+
+            if (response.data.success) {
+                setOrders(response.data.data); // Ensure this path is correct
+            } else {
+                toast.error("Failed to fetch orders");
+            }
+        } catch (error) {
+            toast.error("Error fetching orders");
+            console.error("Fetch orders error:", error); // Log error for debugging
+        }
+    };
+
+    // Mark order as complete
+    // Mark order as complete
+const handleCompleteOrder = async (_id) => {
+  try {
+      const response = await axios.put(`${url}/api/orders/complete/${_id}`);
+
       if (response.data.success) {
-        // Update the orders state with the fetched data
-        setOrders(response.data.data);
+          toast.success(response.data.message);
+          fetchOrders(); // Refresh the order list
       } else {
-        toast.error("Failed to fetch orders"); // Show an error message if unsuccessful
+          toast.error(response.data.message);
       }
-    } catch (error) {
-      toast.error("Error fetching orders"); // Handle errors in the API call
-    }
-  };
+  } catch (error) {
+      toast.error("Error completing the order");
+      console.error("Complete order error:", error); // Log error for debugging
+  }
+};
 
-  // useEffect to fetch orders when the component mounts
-  useEffect(() => {
-    fetchOrders();
-  }, []);
+    // Remove order
+    const handleRemoveOrder = async (_id) => {
+        try {
+            const response = await axios.delete(`${url}/api/orders/remove/${_id}`);
 
-  return (
-    <div className='order-list add flex-col'>
-      <p>Order List</p>
-      <div className="order-table">
-        <div className="order-table-format title">
-          <b>User</b>
-          <b>Address</b>
-          <b>Phone</b>
-          <b>Items</b>
-          <b>Total Amount</b>
-          <b>Order Date</b>
-        </div>
-        {orders.map((order, index) => {
-          return (
-            <div key={index} className="order-table-format">
-              <p>{order.user.name}</p>
-              <p>{order.user.address}</p>
-              <p>{order.user.phone}</p>
-              <div>
-                {order.items.map((item, i) => (
-                  <p key={i}>
-                   Food Name:{item.foodName} - Food ID: {item.foodId} - Quantity: {item.quantity}
-                  </p>
-                ))}
-              </div>
-              <p>Rs {order.totalAmount}</p>
-              <p>{new Date(order.createdAt).toLocaleString()}</p>
+            if (response.data.success) {
+                toast.success(response.data.message);
+                fetchOrders(); // Refresh the order list
+            } else {
+                toast.error(response.data.message);
+            }
+        } catch (error) {
+            toast.error("Error removing the order");
+            console.error("Remove order error:", error); // Log error for debugging
+        }
+    };
+
+    useEffect(() => {
+        fetchOrders();
+    }, []);
+  
+    return (
+        <div className='order-list add flex-col'>
+            <p>Order List</p>
+            <div className="order-table">
+                <div className="order-table-format title">
+                    <b>User</b>
+                    <b>Address</b>
+                    <b>Phone</b>
+                    <b>Items</b>
+                    <b>Total Amount</b>
+                    <b>Order Date</b>
+                    <b>Actions</b>
+                </div>
+                {Array.isArray(orders) && orders.length > 0 ? (
+                    orders.map((order) => (
+                        <div key={order._id} className="order-table-format">
+                            <p>{order.user.name}</p>
+                            <p>{order.user.address}</p>
+                            <p>{order.user.phone}</p>
+                            <div>
+                                {order.items.map((item, i) => (
+                                    <p key={i}>
+                                        {item.foodName} - Quantity: {item.quantity}
+                                    </p>
+                                ))}
+                            </div>
+                            <p>Rs {order.totalAmount}</p>
+                            <p>{new Date(order.createdAt).toLocaleString()}</p>
+                            <div>
+                                <button onClick={() => handleCompleteOrder(order._id)}>Complete</button>
+                                <button onClick={() => handleRemoveOrder(order._id)}>Remove</button>
+                            </div>
+                        </div>
+                    ))
+                ) : (
+                    <p>No orders available.</p>
+                )}
             </div>
-          );
-        })}
-      </div>
-    </div>
-  );
+        </div>
+    );
 };
 
 export default OrderList;
