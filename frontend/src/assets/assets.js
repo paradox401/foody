@@ -14,6 +14,9 @@ import menu_8 from './menu_8.png'
 import menu_9 from './menu_9.png'
 import menu_10 from './menu_10.png'
 
+import banner1 from './banner1.jpg'
+import banner2 from './banner2.jpg'
+import banner3 from './banner3.jpg'
 
 
 
@@ -53,7 +56,10 @@ export const assets = {
     logout_icon,
     bag_icon,
     parcel_icon,
-    marker
+    marker,
+    banner1,
+    banner2,
+    banner3
 }
 
 export const menu_list = [
