@@ -33,7 +33,7 @@ const Cart = () => {
     if (totalItem > 0) {
       console.log(token)
       if (token) {
-        navigate('/order'); // If logged in, navigate to order page
+        navigate('/foody/order'); // If logged in, navigate to order page
       } else {
         setShowLogin(true); // If not logged in, show login popup
       }

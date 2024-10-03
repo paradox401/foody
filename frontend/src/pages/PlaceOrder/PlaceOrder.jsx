@@ -66,7 +66,7 @@ const PlaceOrder = () => {
       setIsModalOpen(true);
       clearCart();
       setTimeout(() => {
-        navigate('/');
+        navigate('/foody/');
       }, 3000);
     } catch (error) {
       console.error('Error placing order:', error);
