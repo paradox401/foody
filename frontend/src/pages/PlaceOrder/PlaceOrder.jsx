@@ -104,15 +104,15 @@ const PlaceOrder = () => {
         <h3>Your Details</h3>
         <label>
           Name:
-          <input type="text" name="name" value={userData.name} onChange={handleInputChange} required />
+          <input type="text" name="name" value={userData.name} onChange={handleInputChange} required placeholder='Please enter you valid name' />
         </label>
         <label>
           Address:
-          <input type="text" name="address" value={userData.address} onChange={handleInputChange} required placeholder='enter your address' />
+          <input type="text" name="address" value={userData.address} onChange={handleInputChange} required placeholder='please enter your valid address' />
         </label>
         <label>
           Phone:
-          <input type="text" name="phone" value={userData.phone} onChange={handleInputChange} required />
+          <input type="text" name="phone" value={userData.phone} onChange={handleInputChange} required placeholder='please enter your valid phone number' />
         </label>
       </div>
 
