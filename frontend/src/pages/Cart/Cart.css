@@ -122,6 +122,7 @@
   }
   
   .cart-login .close-button {
+
     position: absolute;
     top: 10px;
     right: 10px;
@@ -131,7 +132,24 @@
     cursor: pointer;
   }
   
+  .cartifempty{
+    display: flex;
+    justify-content: center;
+  }
+  
+    .emptycart{
+        display: flex;
+        justify-content: center;
+        width: 80%;
+        height: 70vh;
+        box-shadow: #858383 10px 10px 20px 10px ;
+    }
 
+    .emptycart p{
+        color: #525151;
+        position: relative;
+        top: 95%;
+    }
 @media(max-width:750px){
     .cart-bottom{
          flex-direction: column-reverse;

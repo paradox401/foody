@@ -36,6 +36,8 @@ import bag_icon from './bag_icon.png'
 import logout_icon from './logout_icon.png'
 import parcel_icon from './parcel_icon.png'
 
+import cart_empty from './cart_empty.jpeg'
+
 export const assets = {
     logo,
     basket_icon,
@@ -59,7 +61,8 @@ export const assets = {
     marker,
     banner1,
     banner2,
-    banner3
+    banner3,
+    cart_empty
 }
 
 export const menu_list = [

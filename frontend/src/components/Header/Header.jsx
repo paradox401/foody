@@ -43,10 +43,10 @@ const Header = () => {
         }}
       >
         {extendedBannerImages.map((image, index) => (
-          <div
+          <div 
             key={index}
             className="header-slide"
-            style={{ backgroundImage: `url(${image})` }}
+            style={{ backgroundImage: `url(${image})` } }
           >
             <div className="header-contents">
               {/* Your header content goes here */}
