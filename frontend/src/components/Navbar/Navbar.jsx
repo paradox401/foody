@@ -25,6 +25,8 @@ const logout = ()=>{
             <a href='#explore-menu' onClick={()=>setMenu("menu")} className={menu === "menu"?"active":""}>MENU</a>
             <a href='#app-download' onClick={()=>setMenu("mobile-app")} className={menu === "mobile-app"?"active":""}>MOBILE APP</a>
             <a href='#footer' onClick={()=>setMenu("contact-us")} className={menu === "contact-us"?"active":""}>CONTACT US</a>
+            {/* Add FAQ link here */}
+        <Link to='/faq' onClick={() => setMenu("faq")} className={menu === "faq" ? "active" : ""}>FAQ</Link>
         </ul>
         <div className="navbar-right">
             <img src={assets.search_icon} alt="" />

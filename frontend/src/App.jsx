@@ -6,7 +6,7 @@ import Cart from './pages/Cart/Cart'
 import PlaceOrder from './pages/PlaceOrder/PlaceOrder'
 import Footer from './components/Footer/Footer'
 import LoginPopup from './components/LoginPopup/LoginPopup'
-
+import FAQ from './pages/FAQ/FAQ'
 
 
 
@@ -23,6 +23,7 @@ const [showLogin,setShowLogin] = useState(false)
         <Route path='/foody/' element = {<Home/>}/>
         <Route path='/foody/cart' element = {<Cart/>}/>
         <Route path='/foody/order' element = {<PlaceOrder/>}/>
+        <Route path='/faq' element = {<FAQ />} />
       </Routes>
     </div>
     <Footer></Footer>
