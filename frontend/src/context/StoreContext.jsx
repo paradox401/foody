@@ -10,9 +10,7 @@ const StoreContextProvider = (props) => {
   const [userData, setUserData] = useState({
     name: '',
     email: '',
-    // phone: '', // uncomment this when phone number functionality is added
   });
-
   const [coordinates, setCoordinates] = useState(null);
   const [food_list, setFoodList] = useState([]);
 
@@ -38,51 +36,32 @@ const StoreContextProvider = (props) => {
       return null;
     }
   };
-  
 
   const addToCart = async (itemId) => {
-    if (!cartItems[itemId]) {
-      setCartItems((prev) => ({ ...prev, [itemId]: 1 }));
-    } else {
-      setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] + 1 }));
-    }
+    setCartItems((prev) => ({
+      ...prev,
+      [itemId]: prev[itemId] ? prev[itemId] + 1 : 1
+    }));
     if (token) {
       await axios.post("http://localhost:4000/api/cart/add", { itemId }, { headers: { token } });
     }
   };
 
   const removeFromCart = async (itemId) => {
-    setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] - 1 }));
+    setCartItems((prev) => ({
+      ...prev,
+      [itemId]: prev[itemId] - 1 < 1 ? undefined : prev[itemId] - 1
+    }));
     if (token) {
       await axios.post("http://localhost:4000/api/cart/remove", { itemId }, { headers: { token } });
     }
   };
 
   const getTotalCartAmount = () => {
-    let totalAmount = 0;
-    for (const item in cartItems) {
-      if (cartItems[item] > 0) {
-        let itemInfo = food_list.find((product) => product._id === item);
-        totalAmount += itemInfo.price * cartItems[item];
-      }
-    }
-    return totalAmount;
-  };
-
-  const getTotalCartAmountWithDP = () => {
-    let finalAmount = getTotalCartAmount();
-    let totalItem = 0;
-    for (const item in cartItems) {
-      totalItem += cartItems[item];
-    }
-    if (totalItem > 0) {
-      if (Object.keys(cartItems).length > 0) {
-        finalAmount = getTotalCartAmount() + 100;
-      }
-    } else {
-      finalAmount = 0;
-    }
-    return finalAmount;
+    return Object.keys(cartItems).reduce((total, itemId) => {
+      const itemInfo = food_list.find(product => product._id === itemId);
+      return itemInfo ? total + itemInfo.price * cartItems[itemId] : total;
+    }, 0);
   };
 
   const fetchFoodList = async () => {
@@ -95,7 +74,7 @@ const StoreContextProvider = (props) => {
     setCartItems(response.data.cartData);
   };
 
-  const loadUserData = async (token) => {
+  const loadUserData = async (userId, token) => {
     try {
       const response = await axios.get(`http://localhost:4000/api/user/${userId}`, {
         headers: { token },
@@ -113,15 +92,17 @@ const StoreContextProvider = (props) => {
         const savedToken = localStorage.getItem("token");
         if (savedToken) {
           setToken(savedToken);
-  
-          // Decode user ID from the token and set it
           const decoded = decodeJWT(savedToken);
           if (decoded && decoded.id) {
-            setUserId(decoded.id); // Set userId after decoding
-            
-            // Load cart and user data after userId is set
+            setUserId(decoded.id);
             await loadCartData(savedToken);
-            await loadUserData(savedToken);
+            await loadUserData(decoded.id, savedToken); // Pass userId for loading user data
+          } else {
+            // Handle invalid token
+            localStorage.removeItem("token");
+            setToken("");
+            setUserId("");
+            setUserData({ name: '', email: '' });
           }
         }
       } catch (error) {
@@ -129,8 +110,14 @@ const StoreContextProvider = (props) => {
       }
     }
     loadData();
-  }, []);
-  
+  }, []); // Load data on initial mount
+
+  useEffect(() => {
+    // Load user data whenever the token changes
+    if (token && userId) {
+      loadUserData(userId, token);
+    }
+  }, [token, userId]); // Dependencies to re-fetch user data when token or userId changes
 
   const contextValue = {
     food_list,
@@ -139,14 +126,13 @@ const StoreContextProvider = (props) => {
     addToCart,
     removeFromCart,
     getTotalCartAmount,
-    getTotalCartAmountWithDP,
     clearCart,
     token,
-    userId, // Provide userId in the context
-    userData, // Provide userData in the context
-    setUserData, // Allow updates to userData from other components
+    userId,
+    userData,
+    setUserData,
     setToken,
-    coordinates, // Expose coordinates to other components
+    coordinates,
     setCoordinates,
   };
 
